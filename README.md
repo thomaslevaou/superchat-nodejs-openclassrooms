@@ -6,7 +6,8 @@ site OpenClassrooms, à l'adresse suivante: https://openclassrooms.com/fr/course
 Ce TP consiste à réaliser un chat dans le navigateur Web. A l'affichage de la page,
 une fenêtre d'alerte demande le pseudonyme de l'utilisateur. Après l'avoir renseigné,
 l'utilisateur peut envoyer des messages dans le chat, qui seront alors visibles par un autre
-utilisateur qui utilise le même chat dans un autre onglet. Les messages sont envoyés d'un onglet
+utilisateur qui utilise le même chat dans un autre onglet. L'arrivée d'un utilisateur
+dans le chat est signalée aux autres utilisateurs du chat. Les messages sont envoyés d'un onglet
 à l'autre via la WebSocket socket.io.
 
 Une fois cloné, ce projet peut être exécuté en entrant les commandes suivantes à la racine:
