@@ -1,0 +1,11 @@
+{
+    "name": "super-chat-Tom",
+    "version": "0.1.0",
+    "dependencies": {
+        "ent": "~2.2.0",
+        "express": "~4.17.1",
+        "socket.io": "~2.2.0"
+    },
+    "author": "Peterkolios  <peterkolios.orage@gmail.com>",
+    "description": "TP superchat"
+}

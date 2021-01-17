@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Le super chat de Tom</title>
+        <style>
+            .pseudochat {background-color:black;font-weight:bold;color:white;padding:2px; }
+        </style>
+    </head>
+
+    <body>
+        <h1>Le super Chat temps réel !</h1>
+
+        <form action="/" method="post" id="formulaire_chat">
+            <input id="votremessage" type="text" name="votremessage" placeholder="Votre message..." size="30"/>
+            <input type="submit" id="envoimessage" value="Envoyer">
+        </form>
+
+        <div id="messageContainer"></div>
+
+
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:8080');
+            //A la connexion de l'utilisateur, on lui demande son pseudo et on l'envoie
+            var pseudo = prompt('Veuillez entrer votre pseudo :');
+            socket.emit('nouveau_user_chat',pseudo);
+
+            //Affichage des messages a placer dans le chat
+            socket.on('entree_chat', function(contenuMessage){
+                $('#messageContainer').prepend('<p><i>'+contenuMessage+' a rejoint le Chat !</i></p>');
+            });
+
+            socket.on('message', function(contenuMessageChat){
+                insereMessage(contenuMessageChat.pseudo, contenuMessageChat.message);
+            });
+
+            $('#formulaire_chat').submit(function(){ //submit est l'événement appelé, pas clic pour un form hein
+                var messageAenvoyer = $('#votremessage').val();
+                if (messageAenvoyer!=''){
+                    socket.emit('message',messageAenvoyer);
+                    insereMessage(pseudo,messageAenvoyer);
+                }
+                $('#votremessage').val('').focus(); //Ajout du focus pour chauffer l'user à envoyer des messages
+                return false; //bloque un envoi "classique" du form
+            })
+
+            function insereMessage(pseudoMsg,message) {
+                $('#messageContainer').prepend('<p><span class="pseudochat">'+pseudoMsg+'</span> <span>'+message+'</span></p>');
+            }
+        </script>
+    </body>
+</html>
